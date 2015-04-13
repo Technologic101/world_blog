@@ -1,0 +1,64 @@
+*, *:before, *:after {
+    .box-sizing(border-box);
+}
+
+body {
+    // Set global fonts AND line-heights
+    font: 13px/@base-line-height Helvetica, Arial, sans-serif;
+}
+
+// Links
+a,
+a:link,
+a:visited {
+    color: #000;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #666;
+    text-decoration: none;
+}
+
+// Block Level Elements (for uniform margin)
+// See: https://developer.mozilla.org/en-US/docs/HTML/Block-level_elements
+address,figcaption,ol,article,figure,output,aside,
+p,audio,form,pre,h1,h2,h3,h4,h5,h6,canvas,table,
+dd,hgroup,tfoot,hr,ul,dl,video,fieldset,noscript {
+    margin: 0 0 @base-line-height 0;
+}
+
+// Generally used as containers
+section, header, footer, blockquote {
+    margin: 0;
+}
+
+// Headers
+h1 { font-size: 36px; line-height: (@base-line-height * 2); }
+h2 { font-size: 30px; line-height: (@base-line-height * 2); }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 12px; }
+
+// Lists
+ul,ol {
+    padding: 0;
+
+    li {
+        padding: 0;
+        margin-left: @grid-gutter-width;
+    }
+}
+
+dl {
+    padding: 0;
+
+    dd {
+        padding: 0;
+        margin-left: @grid-gutter-width;
+    }
+}
+
+// Tables
+// Forms

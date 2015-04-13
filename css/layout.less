@@ -1,0 +1,93 @@
+#container {
+    // .container(); Centers container
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    > header,
+    > #body,
+    > footer {
+        &:extend(.clearfix all); // Fixes clearing issues w/sidebars
+    }
+}
+
+#body {
+    //.make-row(@grid-gutter-width); Necessary for columns
+}
+
+#content {}
+.sidebar {}
+#sidebar-left {}
+#sidebar-right {}
+
+// Templates
+
+.page-template-clean {}
+
+.page-template-default,
+.page-template-layout-sidebarnone-php {
+    .has-no-sidebars();
+}
+
+.page-template-layout-sidebarleft-php {
+    .has-left-sidebar();
+}
+
+.page-template-layout-sidebarright-php {
+    .has-right-sidebar();
+}
+
+.page-template-layout-sidebarboth-php {
+    .has-both-sidebars();
+}
+
+.page-template-layout-homepage-php {
+    .has-no-sidebars();
+}
+
+
+// Helpers
+
+.has-no-sidebars {
+    #content {
+        .make-sm-column(12);
+    }
+}
+
+.has-one-sidebar {
+    #content {
+        .make-sm-column(8);
+    }
+}
+
+.has-left-sidebar {
+    #sidebar-left {
+        .make-sm-column(4);
+    }
+
+    // Does order matter?
+    .has-one-sidebar();
+}
+
+.has-right-sidebar {
+    .has-one-sidebar();
+
+    #sidebar-right {
+        .make-sm-column(4);
+    }
+}
+
+.has-both-sidebars {
+    #sidebar-left {
+        .make-sm-column(3);
+    }
+
+    #content {
+        .make-sm-column(6)
+    }
+
+    #sidebar-right {
+        .make-lg-column(3);
+    }
+}
