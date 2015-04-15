@@ -1,45 +1,78 @@
 // Header
 #header { 
     margin: 0;
-    padding: 15px 10px;
+    padding: 15px 0px;
     position: absolute;
-    background-color: rgba(150,150,150,0.5);
-    z-index: 1;
-    border-radius: 20px;
     left: 5%;
     top: 20%;
+    z-index: 1;
+    background-color: rgba(140,140,145,0.5);
+    border-radius: 20px;
     box-shadow: inset 0 -6px 25px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.4);
 
     h1#logo {}
-    
-    .menu {
-        ul {
-            list-style: none;
-            margin: 0;
 
-            li {
-                margin: 0;
+    a, .widget {
+        color: #ccc;
+        text-shadow: 1px 1px 1px black;
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
 
-                a {
-                    color: #ddd;
-                    text-shadow: 1px 1px 1px black;
-                    font-size: 1.5rem;
-                    padding: 10px;
-                    display: block;
-                    text-decoration: none;
-                    border-radius: 10px;
-
-                    &:hover {
-                        background-color: rgba(32,34,36,.5);
-                        box-shadow: 0 0 1px 3px rgba(32,34,36,.5);
-                    }
-                }
-            }
+        &:hover, &.current-menu-item, &.current-menu-ancestor {
+            box-shadow: inset 14px 0 75px 11px rgba(0,0,0,.55);
         }
     }
+
+    > a {
+        border-radius: 2px;
+    }
+
+    ul {
+        margin: 0;
+        list-style: none;
+
+        li {
+            margin: 0;
+        }
+    }
+
+    ul, .widget {
+        ul {
+            position: absolute;
+            left: 110%;
+            top: 0;
+            padding: 10px 0;
+            background-color: rgba(150,150,150,0.5);
+            border-radius: 20px;
+            box-shadow: inset 0 -6px 25px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: opacity .5s, visibility 0s .5s;
+            visibility: hidden;
+            min-width: 100%;
+            overflow: hidden;
+
+            a {
+                font-size: 1.25rem;
+                line-height: 1.3;
+            }
+        }
+
+        &:hover ul {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity .5s;
+        }
+    }
+
 }
 
 // Main Content
+
+html { background-color: black; }
 #breadcrumbs {}
 #content {}
 

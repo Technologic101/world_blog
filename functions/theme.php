@@ -130,6 +130,7 @@ class Envoy2014
     public static function registerMenus()
     {
         register_nav_menu('main', 'Top Navigation Menu');
+        register_nav_menu('main-2', 'Top Navigation Part 2');
     }
 
     /**
@@ -235,10 +236,10 @@ class Envoy2014
 
         wp_register_script('envoy',                    $url . 'envoy/envoy.js', array('jquery', 'envoy-simplemodal'));
         wp_register_script('envoy-fluid',              $url . 'envoy/fluid.js');
-        wp_register_script('envoy-global',             $url . 'global.js', array('jquery'));
+        wp_register_script('envoy-global',             $url . 'global.js', array('jquery', 'cesium'));
         wp_register_script('envoy-mobile-nav',         $url . 'envoy/mobile-nav/mobile-nav.js');
         wp_register_script('envoy-mobile-bootstrap',   $url . 'envoy/mobile-nav/bootstrap.js');
-        wp_register_script('envoy-touch-menu',         $url . 'envoy/touch-menu.js', array('jquery', 'cesium'));
+        wp_register_script('envoy-touch-menu',         $url . 'envoy/touch-menu.js', array('jquery'));
         wp_register_script('envoy-bootstrap',          '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', array('jquery'));
         wp_register_script('cesium',                   $url . 'cesium/build/cesium/cesium.js');
     }
