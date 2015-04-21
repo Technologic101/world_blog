@@ -11,7 +11,8 @@
             'latitude'  => floatval(get_field('latitude')),
             'longitude' => floatval(get_field('longitude')),
             'icon'      => get_field('icon'),
-            'name'      => get_the_title()
+            'name'      => get_the_title(),
+            'url'       => get_field('url')
         );
     endwhile; endif;
 ?>

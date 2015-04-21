@@ -21,6 +21,7 @@
 <main id="content">
     <?php echo envoy2014_render('snippets/body/content/home-loop.php'); ?>
 </main><!-- #content -->
+<aside id="loading">Loading...</aside>
 <?php /*
 <div id="sidebar-right" class="sidebar">
     <?php echo envoy2014_render('snippets/body/sidebar-right.php'); ?>

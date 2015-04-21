@@ -26,6 +26,7 @@ class Envoy2014
         self::registerShortcodes();
         self::initPlugins();
         self::initWidgets();
+        self::localize_scripts();
     }
     
     /**
@@ -260,5 +261,15 @@ class Envoy2014
         add_shortcode('template_url', 'envoy2014_template_url');
         add_shortcode('url', 'envoy2014_url');
         add_shortcode('dynamic_sidebar', 'envoy2014_dynamic_sidebar');
+    }
+
+    public static function localize_scripts()
+    {
+        wp_localize_script('envoy-global', 'ajax', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php')
+        ));
+        wp_localize_script('envoy-global', 'siteurl', array(
+            'siteurl' => get_option('siteurl')
+        ));
     }
 }

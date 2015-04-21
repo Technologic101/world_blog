@@ -5,17 +5,15 @@
     position: absolute;
     left: 5%;
     top: 20%;
-    z-index: 1;
-    background-color: rgba(140,140,145,0.5);
-    border-radius: 20px;
-    box-shadow: inset 0 -6px 25px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.4);
+    z-index: 10;
+    .glass-box();
 
     h1#logo {}
 
     a, .widget {
         color: #ccc;
         text-shadow: 1px 1px 1px black;
-        font-size: 1.5rem;
+        font-size: 2rem;
         padding: 10px 20px;
         display: block;
         text-decoration: none;
@@ -56,7 +54,7 @@
             overflow: hidden;
 
             a {
-                font-size: 1.25rem;
+                font-size: 1.5rem;
                 line-height: 1.3;
             }
         }
@@ -72,9 +70,108 @@
 
 // Main Content
 
-html { background-color: black; }
+html {
+    background-color: black;
+    font-size: 13px;
+}
 #breadcrumbs {}
-#content {}
+#content {
+    position: absolute;
+    z-index:-1;
+    opacity: 0;
+    padding: 30px;
+    margin: 5% auto 0;
+    width: 80%;
+    max-width: 1080px;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    .glass-box();
+    background-color: rgba(100,100,105,0.75);
+    color: #ccc;
+    text-shadow: 1px 1px 1px black;
+    font-size: 2rem;
+    line-height: 1.2;
+
+    &.show {
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 1s;
+    }
+
+    p {
+        margin-bottom: @base-line-height;
+    }
+
+    a {
+        text-shadow: none;
+        text-decoration: none;
+    }
+
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background-color: #ccc;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 4px;
+            background-color: black;
+            border-radius: 2px;
+            top: 17px;
+        }
+
+        &:before {
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            transform: rotate(45deg);
+            left: 4px;
+        }
+
+        &:after {
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            right: 4px;
+        }
+    }
+}
+
+.cesium-viewer {
+    position: fixed !important;
+}
+
+#loading {
+    display: none;
+    font-size: 4rem;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+
+    &.in-progress {
+        .animation(loading 2s ease-in-out infinite);
+        display: block;
+    }
+}
+
+h2 {
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
 
 // Page Styling
 #page {
@@ -104,7 +201,10 @@ html { background-color: black; }
     }
 
     .date {}
-    .meta {}
+    .meta {
+        font-size: 1.5rem;
+        margin-bottom: @base-line-height;
+    }
     .categories {}
     .tags {}
 
@@ -134,4 +234,38 @@ html { background-color: black; }
     margin: 0;
 
     .widget {}
+}
+
+// Helper Classes
+
+.glass-box() {
+    background-color: rgba(140,140,145,0.5);
+    border-radius: 20px;
+    box-shadow: inset 0 -6px 25px rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.4);
+}
+
+// Animations
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

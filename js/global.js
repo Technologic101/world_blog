@@ -5,7 +5,7 @@
 jQuery(document).ready( function ($) {
 
   //Create Cesium widget
-  var viewer = new Cesium.Viewer('body', {
+  viewer = new Cesium.Viewer('body', {
     animation       : false,
     baseLayerPicker : false,
     fullscreenButton: false,
@@ -44,22 +44,66 @@ jQuery(document).ready( function ($) {
               scale : 2.5
           },
           longitude : obj.longitude,
-          latitude  : obj.latitude
+          latitude  : obj.latitude,
+          url       : siteurl.siteurl + '/' + obj.url
       });
     }
   }
 
+  console.log(acf_fields);
+  console.log(viewer.entities.values);
+
+  // Loading and Flying to posts
+  var content = $('#content');
+
   // Define handler for picking objects and flying to them on selection
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+
   handler.setInputAction( function(click) {
     var obj = scene.pick(click.position);
-    if(Cesium.defined(obj)) {
-      viewer.camera.flyTo({
-        destination : Cesium.Cartesian3.fromDegrees(obj.id.longitude, obj.id.latitude, 1500)
-      });
+    if(Cesium.defined(obj) && obj.id.url ) {
+      var location = Cesium.Cartesian3.fromDegrees(obj.id.longitude, obj.id.latitude, 1500),
+          url = obj.id.url;
+      loadPost(url, location);
     }
   },
     Cesium.ScreenSpaceEventType.LEFT_DOWN
   );
 
+  // Set up AJAX handlers for loading posts
+
+  $('#header a').on('click', function(e) {
+    var url = $(this).attr('href');
+    e.preventDefault();
+    alert(viewer.entities.values.find( function(el, index, array) {
+      return el.url == url;
+    }));
+    alert('after');
+    console.log(result);
+  });
+
+  function loadPost(url, location) {
+    var url = url + ' #content > article';
+
+    content.removeClass('show');
+    console.log(url);
+    $('#loading').addClass('in-progress');
+    content.load(url, function () {
+      $('#loading').removeClass('in-progress');
+      content.addClass('show');
+    });
+    if (url) {
+      viewer.camera.flyTo({
+        destination : location
+      });
+    }
+  }
+
+  // Close post button
+
+  $('body').on('click', '.close', function () {
+    content.removeClass('show');
+  });
+
 });
+
