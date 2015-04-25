@@ -10,6 +10,7 @@ jQuery(document).ready( function ($) {
     baseLayerPicker : false,
     fullscreenButton: false,
     geocoder        : false,
+    homeButton      : false,
     sceneModePicker : false,
     timeline        : false,
     navigationInstructionsInitiallyVisible : false,
@@ -29,6 +30,14 @@ jQuery(document).ready( function ($) {
 
   //Add the moon for fun
   viewer.cesiumWidget.scene.moon = new Cesium.Moon();
+
+  // Initiate Cesium home button, bind it to Cesium's fly home function
+  // Is this hacky??  This feels hacky
+  var home = new Cesium.HomeButton(document.getElementById('header'), scene);
+  $('a[href="#home"]').on('click', function () {
+    content.removeClass('show');
+    home._viewModel._command();
+  });
 
   //Render each post as an entity on the map
   for (var id in acf_fields) {
@@ -50,13 +59,10 @@ jQuery(document).ready( function ($) {
     }
   }
 
-  console.log(acf_fields);
-  console.log(viewer.entities.values);
-
   // Loading and Flying to posts
   var content = $('#content');
 
-  // Define handler for picking objects and flying to them on selection
+  // Define handler for picking posts via globe
   var handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
 
   handler.setInputAction( function(click) {
@@ -70,23 +76,28 @@ jQuery(document).ready( function ($) {
     Cesium.ScreenSpaceEventType.LEFT_DOWN
   );
 
-  // Set up AJAX handlers for loading posts
+  // Define handler for selecting posts by menu
 
-  $('#header a').on('click', function(e) {
+  $('#header a').not('a[href="#home"]').on('click', function(e) {
     var url = $(this).attr('href');
     e.preventDefault();
-    alert(viewer.entities.values.find( function(el, index, array) {
-      return el.url == url;
-    }));
-    alert('after');
-    console.log(result);
+    console.log(url);
+
+    for (var i = 0; i < viewer.entities.values.length; i++) {
+      var obj = viewer.entities.values[i];
+
+      if ( (obj.url + '/') === (url)) {
+        var destination = Cesium.Cartesian3.fromDegrees(obj.longitude, obj.latitude, 1500)
+      }
+    }
+
+    loadPost(url, destination);
   });
 
   function loadPost(url, location) {
     var url = url + ' #content > article';
 
     content.removeClass('show');
-    console.log(url);
     $('#loading').addClass('in-progress');
     content.load(url, function () {
       $('#loading').removeClass('in-progress');
