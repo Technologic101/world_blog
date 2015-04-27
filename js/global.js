@@ -6,11 +6,13 @@ jQuery(document).ready( function ($) {
 
   //Create Cesium widget
   viewer = new Cesium.Viewer('body', {
-    animation       : false,
+    animation       : true,
     baseLayerPicker : false,
     fullscreenButton: false,
     geocoder        : false,
     homeButton      : false,
+    infoBox         : false,
+    navigationHelpButton  : false,
     sceneModePicker : false,
     timeline        : false,
     navigationInstructionsInitiallyVisible : false,
@@ -33,7 +35,7 @@ jQuery(document).ready( function ($) {
 
   // Initiate Cesium home button, bind it to Cesium's fly home function
   // Is this hacky??  This feels hacky
-  var home = new Cesium.HomeButton(document.getElementById('header'), scene);
+  var home = new Cesium.HomeButton(document.getElementById('header'), scene, 3);
   $('a[href="#home"]').on('click', function () {
     content.removeClass('show');
     home._viewModel._command();
